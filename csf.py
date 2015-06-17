@@ -85,7 +85,7 @@ def contractible(path, perm, composition):
     False
     """
     n = len(path)
-    assert is_dyck_path(path)
+#    assert is_dyck_path(path)
     assert sorted(perm) == range(n)
     assert isinstance(composition, tuple) and sum(composition) == n
     comparable = boxes_under_path(path)
