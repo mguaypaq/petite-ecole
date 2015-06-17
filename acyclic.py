@@ -24,7 +24,30 @@ from dyckpath import is_dyck_path, boxes_under_path
 
 # ---------------------------------------------------------
 
-#### insérer du code ici ####
+def all_orientations(path):
+    r"""
+    Return all acyclic orientations of a Dyck path.
+
+    >>> all(is_orientation(ao) for ao in all_orientations((1, 2, 1, 0)))
+    True
+    >>> len(list(all_orientations((1, 1, 1, 0))))
+    8
+    >>> len(list(all_orientations((3, 2, 1, 0))))
+    24
+    """
+    n = len(path)
+    result = set()
+    for ordering in it.permutations(range(n)):
+        ascents = set()
+        descents = set()
+        for (i, j) in boxes_under_path(path):
+            if ordering[i] < ordering[j]:
+                ascents.add((i, j))
+            else:
+                descents.add((i, j))
+        ao = (n, frozenset(ascents), frozenset(descents))
+        result.add(ao)
+    return result
 
 # ---------------------------------------------------------
 
