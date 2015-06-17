@@ -101,7 +101,19 @@ def all_dyck_paths(n, primitive=False):
                 yield (head,) + tail
         return
 
+_cache = {}
 def boxes_under_path(path):
+    r"""
+    Version mémoisée de _boxes_under_path.
+    """
+    if path in _cache:
+        return _cache[path]
+    else:
+        result = _boxes_under_path(path)
+        _cache[path] = result
+        return result
+
+def _boxes_under_path(path):
     r"""
     Return the set of boxes `(i, j)` below the path `path`.
 
